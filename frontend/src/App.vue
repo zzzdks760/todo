@@ -41,8 +41,8 @@ export default {
       modalVisible: false,
       modalText: ""
     }
-  },/*
-  computed: {
+  },
+  /*computed: {
     ...mapGetters(['storedName'])
   },*/
   methods: {

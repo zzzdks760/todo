@@ -23,15 +23,15 @@ public class TodoController {
 
     // Todo 등록
     @PostMapping("/todos/save")
-    public String createJsonTodo(@RequestBody @Valid TodoForm form, BindingResult bindingResult) {
-        log.info("Post : Todo save");
+    public String createJsonTodo(@RequestBody @Valid TodoForm form, BindingResult bindingResult){
+        log.info("Post : Todo Save");
 
         return validation(form, bindingResult);
     }
 
     // Todo 목록
     @GetMapping("/todos/{orderState}")
-    public List<Todo> list(@PathVariable("orderState") Boolean orderState) {
+    public List<Todo> list(@PathVariable("orderState") Boolean orderState){
         log.info("Get : Todos List");
 
         return todoService.findTodos(orderState);
@@ -42,14 +42,14 @@ public class TodoController {
     public String updateTodo(
             @PathVariable("id") Long id,
             @RequestBody UpdateTodoRequest request
-    ) {
+    ){
         log.info("Put : Todo update");
 
-        todoService.updateTodoCompleted(id, request.isCompleted());
+        todoService.updateTodoComplted(id, request.isCompleted());
 
         Todo findTodo = todoService.findOne(id);
 
-        if (request.isCompleted() == findTodo.isCompleted()) {
+        if(request.isCompleted() == findTodo.isCompleted()){
             return "ok";
         } else {
             return "fail";
@@ -60,14 +60,14 @@ public class TodoController {
     @PutMapping("/todos/delete/{id}")
     public String deleteTodo(
             @PathVariable("id") Long id
-    ) {
+    ){
         log.info("Delete : Todo Delete");
 
         todoService.updateTodoUseYn(id);
 
         Todo findTodo = todoService.findOne(id);
 
-        if (findTodo.getUseYn().equals("N")) {
+        if(findTodo.getUseYn().equals("N")){
             return "ok";
         } else {
             return "fail";
@@ -75,12 +75,12 @@ public class TodoController {
     }
 
     @PutMapping("/todos/clear")
-    public String clearAllTodo() {
+    public String clearAllTodo(){
         log.info("Clear : Todo All Clear");
 
         int result = todoService.updateTodoAllClear();
 
-        if(result > 0) {
+        if(result > 0){
             return "ok";
         } else {
             return "fail";
@@ -90,7 +90,7 @@ public class TodoController {
     // 요청 파라미터 validation 체크
     private String validation(@Valid @RequestBody TodoForm form, BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()){
             return "todo error";
         }
 
