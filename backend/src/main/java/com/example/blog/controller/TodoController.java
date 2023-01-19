@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-
+@RequestMapping("/api")
 public class TodoController {
 
     private final TodoService todoService;
