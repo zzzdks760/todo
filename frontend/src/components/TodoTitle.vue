@@ -1,21 +1,82 @@
 <template>
   <div class="title">
-    <p class="title__message">{{ message }}</p>
+    <p class="title__text">
+      <span class="title__message">Good {{ message }},</span>
+      <span
+        v-on:keyup.enter="handleEnter"
+        v-on:blur="handleBlur"
+        class="title__name"
+        ref="test"
+        contenteditable="true"
+      >{{ this.userName }}</span>
+      .
+    </p>
     <p class="title__task">
-      You've got
-      <span class="title__task-total">{{ taskTotal }}</span> tasks today.
+      <span class="title__task-top">오늘의 할 일은</span>
+      <span class="title__task-count">
+        <em class="title__task-left">{{ this.todoItemsCount.left }}</em>
+        <em
+          v-if="this.todoItemsCount.total"
+          class="title__task-total"
+        >&nbsp;/ {{ this.todoItemsCount.total }}</em>
+      </span>
+      <span class="title__task-bottom">
+        <span v-if="this.todoItemsCount.total > 1"></span>
+        <span v-else></span> 입니다 !
+      </span>
+      <span class="title__task-info"></span>
     </p>
   </div>
 </template>
 
 <script>
+import getDate from "../assets/common/getDate.js";
+
 export default {
     data() {
         return {
-            message: "Hello, Jaewon.",
-            taskTotal: 10
+            message: "",
+            userName: this.$store.getters.storedName,
         }
     },
+    methods: {
+      handleBlur(e) {
+        const originalName = this.userName;
+        const newName = e.target.innerText;
+        if (newName !== originalName) {
+          if(newName === "") {
+            e.target.innerText = originalName;
+        } else {
+          this.$store.commit("setUserName", newName);
+        }
+      }
+    },
+    handleEnter() {
+      this.$refs.test.blur();
+    },
+  },
+  computed: {
+    todoItemsCount(){
+      const checkLeftItems = () => {
+        const items = this.$store.getters.storedTodoItems;
+        let leftCount = 0;
+        for(let i = 0; i < items.length; i++) {
+          if(items[i].completed === false) {
+            leftCount++;
+          }
+        }
+        return leftCount;
+      }
+      const count = {
+        total: this.$store.getters.storedTodoItemsCount,
+        left: checkLeftItems()
+      }
+      return count;
+    }
+  },
+  mounted() {
+    this.message = getDate().daytime;
+  }
 }
 </script>
 

@@ -1,15 +1,38 @@
 <template>
   <div class="controller">
     <div class="select">
-      <label for="order">Order</label>
-      <select name="order" id="order" class="selectbox">
-        <option value="date-asc">Date Ascending</option>
-        <option value="date-desc">Date Descending</option>
+      <label class="blind" for="order">Order</label>
+      <select name="order" id="order" class="selectbox" v-model="selected" v-on:change="sortTodo">
+        <option value="date-asc">Oldest</option>
+        <option value="date-desc">Latest</option>
       </select>
     </div>
-    <button class="clear">Clear All</button>
+    <button class="clear" v-on:click="clearTodo">Clear All</button>
   </div>
 </template>
+
+<script>
+import { mapMutations } from "vuex";
+export default {
+  data() {
+    return {
+      selected: "date-asc"
+    };
+  },
+  methods: {
+    ...mapMutations({
+      clearTodo: "clearAllItem"
+    }),
+    sortTodo() {
+      if (this.selected === "date-desc") {
+        this.$store.commit("sortTodoLatest");
+      } else if (this.selected === "date-asc") {
+        this.$store.commit("sortTodoOldest");
+      }
+    }
+  }
+};
+</script>
 
 
 <style lang="scss">

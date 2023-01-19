@@ -36,15 +36,15 @@ import TodoModal from "./components/common/TodoModal";
 
 export default {
   name: 'App',
-/*  data() {
+  data() {
     return {
       modalVisible: false,
       modalText: ""
     }
-  },
+  },/*
   computed: {
-    ...mapGetters(["storedName"])
-  },
+    ...mapGetters(['storedName'])
+  },*/
   methods: {
     showModal(text) {
       this.modalText = text;
@@ -54,7 +54,7 @@ export default {
       this.$refs.list.getBoardList();
     }
   },
-  */
+
   components: {
     TodoHeader,
     TodoTitle,

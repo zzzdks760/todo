@@ -1,11 +1,15 @@
 <template>
-    <header class="header">
-        <h1 class="logo">hi</h1>
-        <p class="data">{{ timestamp }}</p>
-    </header>
+  <header class="header">
+    <h1 class="logo">
+      <span class="blind"></span>
+    </h1>
+    <p class="header__date">{{ timestamp }}</p>
+  </header>
 </template>
 
 <script>
+import getDate from "../assets/common/getDate.js";
+
 export default {
     data() {
         return {
@@ -13,12 +17,7 @@ export default {
         }
     },
     created() {
-        const now = new Date();
-        const month = now.getMonth() + 1;
-        const date = now.getDate();
-        const weekList = new Array("Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat.",);
-        const week = weekList[now.getDay()];
-        this.timestamp = `${month}/${date} ${week}`;
+      this.timestamp = `${getDate().month}/${getDate().date} ${getDate().week}`
     },
 }
 </script>

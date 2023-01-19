@@ -13,7 +13,7 @@ const storage = {
         }
 
         await axios
-            .get('/todos' + setState)
+            .get('/todos/' + setState)
             .then(res => {
                 const jsonData = res.data;
 
@@ -25,14 +25,15 @@ const storage = {
                     }
                 }
             })
-            store.state.todoItems = arr;
+        store.state.todoItems = arr;
     },
     fetchName() {
-        if(localStorage.getItem("userName")) {
+        if (localStorage.getItem("userName")) {
             const userName = localStorage.getItem("userName");
-            return userName
+            return userName;
         }
     }
 }
+
 
 export default storage

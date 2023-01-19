@@ -1,10 +1,58 @@
 <template>
   <div class="add">
-    <input type="text" class="add__input" placeholder="Enter your task" />
-    <button class="add__button">Add</button>
+    <div class="main-input">
+      <input
+        type="text"
+        class="add__input"
+        placeholder="Enter your task here"
+        v-model="newTodoItem"
+        v-on:keypress.enter="addTodoItem"
+        ref="taskInput"
+      />
+      <button class="add__buttonn" v-on:click="addTodoItem">
+        <span class="blind">Add</span>
+      </button>
+    </div>
   </div>
 </template>
 
+<script>
+import { mapGetters } from "vuex";
+export default {
+  data() {
+    return {
+      newTodoItem: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["storedTodoItems", "storedTodoItemsCount"])
+  },
+  methods: {
+    addTodoItem() {
+      const oldItems = this.storedTodoItems;
+      for (let i = 0; i < this.storedTodoItemsCount; i++) {
+        if (oldItems[i].item === this.newTodoItem) {
+          const text = "I think you've already had the task.";
+          this.$emit("alertModal", text);
+          return false;
+        }
+      }
+      if (this.newTodoItem === "") {
+        const text = "The form is empty. Please note your task.";
+        this.$emit("alertModal", text);
+        this.clearInput();
+        return false;
+      }
+      this.$store.commit("addOneItem", this.newTodoItem);
+      this.clearInput();
+      this.$refs.taskInput.focus();
+    },
+    clearInput() {
+      this.newTodoItem = "";
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 .add {
