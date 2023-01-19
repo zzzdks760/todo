@@ -16,7 +16,9 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api")
+
+@CrossOrigin("http://localhost:8787, http://localhost:8080")
+
 public class TodoController {
 
     private final TodoService todoService;

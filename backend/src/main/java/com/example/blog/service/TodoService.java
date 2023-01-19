@@ -45,6 +45,7 @@ public class TodoService {
         todo.setUseYn("N");
     }
     // Todo 전체 삭제(DB 업데이트)
+    @Transactional
     public int updateTodoAllClear() {
         return todoRepository.updateTodoAllClear();
     }
