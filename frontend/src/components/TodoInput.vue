@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     addTodoItem() {
+      // 중복되는 내용인 경우
       const oldItems = this.storedTodoItems;
       for (let i = 0; i < this.storedTodoItemsCount; i++) {
         if (oldItems[i].item === this.newTodoItem) {
@@ -37,6 +38,7 @@ export default {
           return false;
         }
       }
+      // 빈 내용인 경우
       if (this.newTodoItem === "") {
         const text = "The form is empty. Please note your task.";
         this.$emit("alertModal", text);

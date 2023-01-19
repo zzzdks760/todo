@@ -9,17 +9,16 @@
 
 <script>
 import getDate from "../assets/common/getDate.js";
-
 export default {
-    data() {
-        return {
-            timestamp: ""
-        }
-    },
-    created() {
-      this.timestamp = `${getDate().month}/${getDate().date} ${getDate().week}`
-    },
-}
+  data() {
+    return {
+      timestamp: ""
+    };
+  },
+  created() {
+    this.timestamp = `${getDate().month}/${getDate().date} ${getDate().week}`;
+  }
+};
 </script>
 
 

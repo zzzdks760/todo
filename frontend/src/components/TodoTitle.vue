@@ -31,21 +31,23 @@
 
 <script>
 import getDate from "../assets/common/getDate.js";
-
 export default {
-    data() {
-        return {
-            message: "",
-            userName: this.$store.getters.storedName,
-        }
-    },
-    methods: {
-      handleBlur(e) {
-        const originalName = this.userName;
-        const newName = e.target.innerText;
-        if (newName !== originalName) {
-          if(newName === "") {
-            e.target.innerText = originalName;
+  data() {
+    return {
+      //시간대별로 morning, afternoon, evening 출력
+      message: "",
+      // 저장된 userName 가져옴
+      userName: this.$store.getters.storedName
+    };
+  },
+  methods: {
+    // 포커스아웃시, 입력된 이름을 userName으로 저장
+    handleBlur(e) {
+      const originalName = this.userName;
+      const newName = e.target.innerText;
+      if (newName !== originalName) {
+        if (newName === "") {
+          e.target.innerText = originalName;
         } else {
           this.$store.commit("setUserName", newName);
         }
@@ -53,31 +55,32 @@ export default {
     },
     handleEnter() {
       this.$refs.test.blur();
-    },
+    }
   },
   computed: {
-    todoItemsCount(){
+    // 할 일 목록 수 표시
+    todoItemsCount() {
       const checkLeftItems = () => {
         const items = this.$store.getters.storedTodoItems;
         let leftCount = 0;
-        for(let i = 0; i < items.length; i++) {
-          if(items[i].completed === false) {
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].completed === false) {
             leftCount++;
           }
         }
         return leftCount;
-      }
+      };
       const count = {
         total: this.$store.getters.storedTodoItemsCount,
         left: checkLeftItems()
-      }
+      };
       return count;
     }
   },
   mounted() {
     this.message = getDate().daytime;
   }
-}
+};
 </script>
 
 <style lang="scss">

@@ -32,19 +32,18 @@ import TodoList from "./components/TodoList";
 import TodoFooter from "./components/TodoFooter";
 import TodoHello from "./components/TodoHello";
 import TodoModal from "./components/common/TodoModal";
-//import { mapGetters } from "vuex";
-
+import { mapGetters } from "vuex";
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
       modalVisible: false,
       modalText: ""
-    }
+    };
   },
-  /*computed: {
-    ...mapGetters(['storedName'])
-  },*/
+  computed: {
+    ...mapGetters(["storedName"])
+  },
   methods: {
     showModal(text) {
       this.modalText = text;
@@ -54,7 +53,6 @@ export default {
       this.$refs.list.getBoardList();
     }
   },
-
   components: {
     TodoHeader,
     TodoTitle,
@@ -65,9 +63,8 @@ export default {
     TodoHello,
     TodoModal
   }
-}
+};
 </script>
-
 
 <style lang="scss">
 @import "./assets/style/_reset";
